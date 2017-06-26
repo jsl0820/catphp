@@ -4,15 +4,15 @@ use Library\FormWorker\Route\Route;
 
 class Cat {
 
+	private static $instance;
+
 	public function __construct()
 	{	
-		// $route = new Route();
-		$path = './App/Controller/IndexController.php';
-		echo $path;
-		require $path;
-		exit();
-		$controller = new IndexController();
+		
+		$controller = new \App\Controller\IndexController();
 		$method = "test";
+
+
 		call_user_func([$controller,$method]);
 	}
 

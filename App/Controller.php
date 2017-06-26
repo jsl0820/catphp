@@ -6,7 +6,7 @@ class Controller extends BaseController
 {
 	function __construct()
 	{
-		echo 'Controller';
+		echo 'Controller11';
 	}
 }
 
