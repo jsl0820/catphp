@@ -6,8 +6,13 @@ class Cat {
 
 	public function __construct()
 	{	
-		require ('../'.__DIR__.'/App/Controller/IndexController.php');
+		// $route = new Route();
+		$path = './App/Controller/IndexController.php';
+		echo $path;
+		require $path;
+		exit();
 		$controller = new IndexController();
+		$method = "test";
 		call_user_func([$controller,$method]);
 	}
 

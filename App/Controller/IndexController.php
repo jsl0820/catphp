@@ -1,8 +1,8 @@
 <?php 
 namespace App\Controller;
-use Cat\Controller;
+use App\Controller;
 
-class IndexController extends Conreoller{
+class IndexController extends Controller{
 
 	public function __construct(){
 
