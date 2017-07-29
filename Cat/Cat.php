@@ -2,6 +2,7 @@
 namespace Cat;
 use Library\FormWorker\Route\Route;
 
+
 class Cat {
 
 	private $controllerSuffix = 'Controller';
@@ -18,13 +19,11 @@ class Cat {
 
 	public function __construct()
 	{	
-		
-
 		//dd($_SERVER['PATH_INFO']);
 		// $controller = new \App\Controller\IndexController();
 		//$method = "test";
 		//call_user_func([$controller,$method]);
-		$this->getRequest();
+		//$this->distributeRequert();
 	}
 
 	private function getActionName($arr)
@@ -37,30 +36,44 @@ class Cat {
 	{
 		array_pop($arr);
 		$model = implode('\\', $arr);
-		$modelFile =$this->modelPath.$model.$this->controllerSuffix.'()';
+		$modelFile =$this->modelPath.$model.$this->controllerSuffix;
 		return $modelFile;
 	}
 
-	public function getRequest()
+	//请求
+	public function getRequest($pathInfo)
 	{
-		$route = new Route();
-		$pathInfo = $route->pathInfo;
 		$arr = explode('/',$pathInfo);
-		$this->action = $this->getActionName($arr);
-		$this->model = $this->getModelPath($arr);
-		$test = new $this->model;
-		$test->test();
+
+		$request = [
+			'action' => $this->getActionName($arr),
+			'modul'  => $this->getModelPath($arr) 
+		];
+
+		return $request;
 	}
 
-	public function distributeRequert()
+	//响应
+	public function response($request)
+	{	
+		$controller = new $request['modul']();
+		$action = $request['action'];
+
+		$response = call_user_func([$controller,$action]);
+
+		dd($response);
+		return $response;
+	}
+
+	//发送响应(显示)
+	public function handleResponse()
 	{
-		
+
 	}
 
 	public function instance($abstract)
 	{	
 		$instance;
-
 		if(in_array($abstract, $this->instance)){
 			 $this->instance[$abstract];
 		}else{
@@ -71,9 +84,14 @@ class Cat {
 	}
 
 	public function run()
-	{
-
-	}
+	{	
+		$route = new Route();
+		$pathInfo = $route->pathInfo;
+		$request = $this->getRequest($pathInfo);
+		$response = $this->response($request);
+		exit();
+		$this->handleResponse($response);
+	}	
 }
 
  ?>
