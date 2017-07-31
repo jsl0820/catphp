@@ -5,19 +5,34 @@ namespace Library\FormWorker\Route;
 class Route {
 
 	public $pathInfo;
-	public $input;
+
+	public $urlInfo;
+	public $path;
 
 	public function __construct()
-	{
-		$this->pathInfo = trim($_SERVER['PATH_INFO']);
-		$this->input = $this->getRequest();
+	{	
+		$this->pathInfo = $_SERVER['PATH_INFO'];
+		$this->path = $_SERVER['PHP_SELF'];
 	}
 
-	public function  getRequest()
-	{
-		$get = $_GET;
-		$post = $_POST;
-		return array_merge($get,$post);
+	public function post($key)
+	{	
+		$post = trim($_POST[$key]);
+		return $post;		
+	}
+
+	public function get($key)
+	{	
+		if(!$key){
+			$get = trim($_POST[$key]);
+		}else{
+			$get = $_POST;
+		}
+		return $get;
+	}
+
+	public function test(){
+		echo '1234';
 	}
 
 }

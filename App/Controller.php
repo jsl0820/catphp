@@ -4,9 +4,8 @@ use Library\FormWorker\Controller\BaseController;
 
 class Controller extends BaseController
 {
-	function __construct()
-	{
-		echo 'Controller11';
+	public function baseTest(){
+		echo '123';
 	}
 }
 
