@@ -1,5 +1,5 @@
 <?php 
-$routes = [
-	'test' => 'App/Controller/index@test';	
-]
+return [
+	'test' => 'Home/Product/IndexController@test',
+];
  ?>

@@ -5,8 +5,9 @@ use App\Controller;
 class IndexController extends Controller{
 	
 	public function test(){
-		$this->baseTest();
+		$this->display();
 	} 
+
 }
 
 ?>
