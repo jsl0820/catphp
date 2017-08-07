@@ -5,7 +5,8 @@
 	
 	"autoload":{
 		"psr-4":{
-			"Cat\\":"cat/"
+			"Cat\\":"cat/",
+			"App\\":"app/"
 		}
 	}
 

@@ -1,11 +1,12 @@
 <?php 
 namespace App\Controller\Home;
+
 use App\Controller;
 
 class HomeController extends Controller{
-	
-	public function test(){
-		$this->display();
+
+	public function woaini(){
+		
 	} 
 }
 

@@ -2,45 +2,34 @@
 namespace Cat\Route;
 class Route {
 
-	public $route;
+	public $pathInfo;
 
-	private $rule;
+	public $requestClass;
 
-	public function __construct($route,$rule)
+	public $requestMethod;
+
+	public $routeReflection;
+
+	public function __construct($pathInfo, $routrRule)
 	{	
-		$this->route = $route;
-		$this->rule = $rule;
-		$this->routeReflection = $rule[$route];
+
+		$this->pathInfo = $pathInfo;
+		$this->routeReflection = $routrRule[$pathInfo];
+		$this->setRequestFile();
 	}
 
-	public function post($key)
-	{	
-		$post = trim($_POST[$key]);
-		return $post;		
-	}
-
-	public function get($key)
-	{	
-		if(!$key){
-			$get = trim($_POST[$key]);
-		}else{
-			$get = $_POST;
-		}
-		return $get;
-	}
-
-	public function getRequestFilePath()
+	public function setRequestFile()
 	{
-		$routeReflection = $this->routeReflection;
-
-		echo $routeReflection;
-	}
-
-	public function getRequestMethod()
-	{	
-
-	}
-	
+		$reflection = $this->routeReflection;
+		$refInfo = explode('@', $reflection);
+		echo $refInfo[0];
+		echo '<br>';
+		$class = str_replace('/','\\',$refInfo[0]);
+		echo $class;
+		echo '<br>';
+		$this->requestClass = 'App\Controller\\' . $class; 
+		$this->requestMethod = $refInfo[1];
+	}	
 }
 
 

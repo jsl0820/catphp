@@ -1,5 +1,5 @@
 <?php 
 return [
-	'test' => 'Home/Product/IndexController@test',
+	'/test' => 'Home/HomeController@woaini',
 ];
  ?>

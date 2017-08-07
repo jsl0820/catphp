@@ -11,12 +11,20 @@ class ComposerStaticInitd9af678c83fee728ed27d510d3b04456
         array (
             'Cat\\' => 4,
         ),
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Cat\\' => 
         array (
             0 => __DIR__ . '/../..' . '/cat',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
