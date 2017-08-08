@@ -7,6 +7,7 @@ class HomeController extends Controller{
 
 	public function woaini(){
 		
+		$this->display('Home.test');
 	} 
 }
 
