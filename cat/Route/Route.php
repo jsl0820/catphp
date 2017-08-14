@@ -1,5 +1,6 @@
 <?php 
 namespace Cat\Route;
+
 class Route {
 
 	public $pathInfo;
@@ -22,16 +23,9 @@ class Route {
 	{
 		$reflection = $this->routeReflection;
 		$refInfo = explode('@', $reflection);
-		echo $refInfo[0];
-		echo '<br>';
 		$class = str_replace('/','\\',$refInfo[0]);
-		echo $class;
-		echo '<br>';
 		$this->requestClass = 'App\Controller\\' . $class; 
 		$this->requestMethod = $refInfo[1];
 	}	
 }
-
-
  ?>
-}

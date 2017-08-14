@@ -7,7 +7,7 @@ class Controller extends BaseController
 {	
 
 	public function test(){
-		echo '123';
+		
 	}
 }
  ?>

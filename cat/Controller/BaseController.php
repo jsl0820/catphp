@@ -1,11 +1,19 @@
 <?php 
 namespace Cat\Controller;
 
+
 class BaseController 
 {	
+
+	public $route; 
+
+	public $data;
+
 	public $tempPath;
 
 	public $tempelRoot = CAT_ROOT .'/app/View/';
+
+	public $extension = '.html';
 
 	private $cacheRoot = CAT_ROOT .'cache';
 
@@ -15,42 +23,64 @@ class BaseController
 		'auto_reload' => true,
 	];
 
-
-
-	public function display($temp)
-	{
-		$temp = str_replace('.', '/', $temp). '.twig';
-		$this->tempPath = $this->tempelRoot .$temp;
-
-		$this->render($this->tempPath);
+	public function __construct($route)
+	{	
+		$this->route = $route;
 	}
 
-	public function render()
+	protected function request()
+	{
+		return $this->$route;
+	}
+
+
+	/**
+	 * 定位模板文件地址 
+	 *	
+	 * @param string $temp 
+	 * @return void
+	 */
+	public final function display($temp)
+	{
+		$tempArr = explode('.', $temp);
+		$tempFile = array_pop($tempArr) .$this->extension;
+		$tempDir = $this->tempelRoot .implode('/', $tempArr) .'/';
+		$this->render($tempDir, $tempFile);
+	}
+		
+	/**
+	 * twig 模板引擎渲染 
+	 *
+	 * @param  string $tempDir
+	 * @param  string $tempFile
+	 * @return void
+	 */
+	public final function render($tempDir, $tempFile)
 	{	
-		$tempDir = CAT_ROOT .'/app/View/Home/';
 		$loader = new \Twig_Loader_Filesystem($tempDir);
 		$twig = new \Twig_Environment($loader,[
-			'cache' => $this->cacheRoot
+			'cache' => $this->cacheRoot,
+			'debug' => true,
 			]);
-		$arr = [
-			'name' => 'jin',
-			'age'  => '12',
-			'sex'  => 'male'
-		];
 
-		
-		//echo $twig->render("index2.html",['info'=>$arr]);
+		echo $twig->render($tempFile,$this->data);
 	}
 
-	public function assign($var, $value = null)
+	/**
+	 * 模板赋值 
+	 * 
+	 * @param $var 
+	 */
+	public final function assign($var, $value = null)
 	{
-		if(is_array($var)){
+		if (is_array($var)){
 			foreach ($var as $key => $value) {
 				$this->data[$key] = $value;
 			}
-		}else{
+		} else {
 			$this->data[$var] = $value;
 		}
 	}
+
 }
- ?>
+?>
