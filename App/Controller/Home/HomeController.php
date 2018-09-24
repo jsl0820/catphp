@@ -1,28 +1,15 @@
-<?php 
+<?php
 namespace App\Controller\Home;
 
-use Cat\Model;
-use App\Model\Goods;
 use App\Controller;
-class HomeController extends Controller{
+use Cat\File\File;
 
-	public function index(){
+class HomeController extends Controller {
 
-		//$config = App::$config;
-		App::$config = 2345;
-		var_dump($config);
-	} 
-
-	public function woaini(){
-		
-
-		$config = App::$config;
-		var_dump($config);
-		//(new Goods())->select()->where()->all();
-		//(new Model('goods'))->select();
-	} 
-
+	public function index() {
+		$file = new File();
+		$name = $file->openFile(__DIR__ . "/test.html", "r");
+		// echo $name;
+	}
 
 }
-
-?>

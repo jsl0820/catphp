@@ -11,6 +11,8 @@
 			"Cat\\":"cat/",
 			"App\\":"app/"
 		}
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^6"
 	}
-
 }
