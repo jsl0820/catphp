@@ -1,0 +1,13 @@
+<?php 
+namespace Cat\Model\Grammer\Query;
+
+/**
+ * 
+ */
+class Grammer
+{
+	public $option = [
+
+
+	];
+}
