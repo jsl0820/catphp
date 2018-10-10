@@ -2,6 +2,8 @@
 
 namespace Cat\Model;
 
+use Cat\Model\Builder;
+
 class Connection implements ConnectionInterface {
 	protected $pdo;
 	protected $config;
@@ -24,7 +26,11 @@ class Connection implements ConnectionInterface {
 
 	}
 
-	public function table() {
+	/**
+	 * @param $table 表名
+	 */
+	public function table($table) {
+				
 
 	}
 
