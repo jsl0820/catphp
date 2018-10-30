@@ -1,9 +1,6 @@
 <?php 
 namespace Cat\Model;
 
-/**
- * 
- */
 class Builder 
 {
 	public $table;
@@ -27,7 +24,7 @@ class Builder
 	public $sql;
 	
 	public $grammer;
-
+	
 	/**
 	 * @param $table string 表名
 	 * @param $prefix string 表前缀
@@ -53,10 +50,9 @@ class Builder
 	 *  @param $columns 可变参数
 	 *  @return $this
 	 */
-	public function field(...$columns)
+	public function field($columns = "*")
 	{
-		$this->fields = $columns;
-		$this->grammer->compileColumns($columns);
+		$this->fields = $this->grammer->ompileFields($columns);
 		return $this;
 	}
 	
@@ -74,8 +70,14 @@ class Builder
 			$this->resolvArrayWheres($column);
 			return 
 		}
-			
-		$this->where[] = $this->grammer->compileWhere($column, $oprate, $value);
+		
+		//如果还没有where语句那么就不加and
+		if(length($this->where) == 0){
+			$type = "";
+		}
+
+		$this->where[] = $this->grammer->compileWhere($column, $oprate, $value, $type);
+
 		return $this;
 	}
 	
@@ -84,18 +86,19 @@ class Builder
 	 */
 	private function resolvArrayWheres($wheres)
 	{	
-		foreach ($wheres as $key => $value) {
+		foreach ($wheres as $value) {
 			$this->where($value[0], $value[1], $value[2]);		
 		}	
 	}
 	
 	/**
-	 *  @param $table string 
-	 *  @param $where string
+	 * @param $table string 
+	 * @param $where string
+	 * @param $type string 
 	 */
 	public function join($table, $where, $type = 'left')
 	{
-		$this->join[] = $this->grammer->compileJoin($table, $where, 'left');
+		$this->join[] = $this->grammer->compileJoin($table, $where, $type);
 		return $this;
 	} 
 	
@@ -115,7 +118,7 @@ class Builder
 	 */
 	public function offset($value)
 	{
-		$this->offset = $value;
+		$this->offset = " offset {$value}";
 		return $this;
 	}
 	
@@ -125,7 +128,7 @@ class Builder
 	 */
 	public function limit($value)
 	{
-		$this->limit = $value;
+		$this->limit =" limit {$value}";
 		return $this;
 	}	
 	

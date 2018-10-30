@@ -8,8 +8,8 @@ class HomeController extends Controller {
 
 	public function index() {
 		$file = new File();
-		$name = $file->openFile(__DIR__ . "/test.html", "r");
-		// echo $name;
+		// $name = $file->openFile(__DIR__ . "/test.html", "r");
+		echo $name;
 	}
-
+	
 }
